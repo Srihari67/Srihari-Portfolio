@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Srihari B — UI/UX Designer</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0d0d14;
+    --ink2: #2a2a3a;
+    --muted: #6b6b84;
+    --line: #e2e2ee;
+    --bg: #f8f8fc;
+    --white: #ffffff;
+    --blue: #1a4fd6;
+    --blue-light: #e8eefb;
+    --teal: #0ea5a0;
+    --amber: #f5a623;
+    --accent-grad: linear-gradient(135deg, #1a4fd6, #0ea5a0);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(248,248,252,0.88);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--line);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800; font-size: 1.1rem;
+    color: var(--blue);
+    letter-spacing: -0.02em;
+    text-decoration: none;
+  }
+
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.875rem; font-weight: 500; color: var(--muted);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--blue); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    align-items: center; gap: 4rem;
+    padding: 6rem 5vw 4rem;
+    position: relative; overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; top: -20%; right: -10%; width: 60vw; height: 80vh;
+    background: radial-gradient(ellipse at center, rgba(26,79,214,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--blue-light); border: 1px solid rgba(26,79,214,0.18);
+    padding: 0.35rem 1rem; border-radius: 100px;
+    font-size: 0.78rem; font-weight: 500; color: var(--blue);
+    letter-spacing: 0.04em; text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-eyebrow::before {
+    content: ''; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--teal); animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.6; transform:scale(1.3); } }
+
+  .hero-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    font-weight: 800; line-height: 1.05;
+    letter-spacing: -0.03em; color: var(--ink);
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-title span {
+    background: var(--accent-grad);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero-sub {
+    font-size: 1.05rem; color: var(--muted); max-width: 480px;
+    line-height: 1.7; margin-bottom: 2.5rem; font-weight: 300;
+  }
+
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--blue); color: #fff;
+    padding: 0.8rem 1.8rem; border-radius: 8px;
+    font-size: 0.9rem; font-weight: 500; text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(26,79,214,0.3);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(26,79,214,0.4); }
+
+  .btn-ghost {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    border: 1.5px solid var(--line); color: var(--ink2);
+    padding: 0.8rem 1.8rem; border-radius: 8px;
+    font-size: 0.9rem; font-weight: 500; text-decoration: none;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--blue); color: var(--blue); }
+
+  /* Hero visual */
+  .hero-visual {
+    position: relative; display: flex; justify-content: center; align-items: center;
+  }
+
+  .hero-card {
+    background: var(--white); border-radius: 20px;
+    border: 1px solid var(--line);
+    padding: 2rem; width: 340px;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.08);
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+
+  .hero-card-header {
+    display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;
+  }
+
+  .avatar {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: var(--accent-grad);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 1.2rem; color: #fff; flex-shrink: 0;
+  }
+
+  .hero-card-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; }
+  .hero-card-role { font-size: 0.78rem; color: var(--muted); }
+
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .skill-tag {
+    background: var(--blue-light); color: var(--blue);
+    padding: 0.3rem 0.75rem; border-radius: 100px;
+    font-size: 0.75rem; font-weight: 500;
+  }
+  .skill-tag.teal { background: rgba(14,165,160,0.1); color: var(--teal); }
+  .skill-tag.amber { background: rgba(245,166,35,0.1); color: #b87200; }
+
+  .stat-row {
+    display: flex; gap: 1rem; margin-top: 1.5rem;
+    padding-top: 1.25rem; border-top: 1px solid var(--line);
+  }
+  .stat { text-align: center; flex: 1; }
+  .stat-num { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.4rem; color: var(--blue); }
+  .stat-label { font-size: 0.7rem; color: var(--muted); margin-top: 2px; }
+
+  /* Floating badge */
+  .badge {
+    position: absolute; background: var(--white);
+    border: 1px solid var(--line); border-radius: 12px;
+    padding: 0.75rem 1rem; font-size: 0.78rem; font-weight: 500;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  }
+  .badge-top { top: -20px; right: -30px; color: var(--teal); }
+  .badge-bottom { bottom: -20px; left: -30px; color: var(--blue); }
+
+  /* ── SECTION COMMON ── */
+  section { padding: 6rem 5vw; }
+  .section-label {
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--teal); margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    letter-spacing: -0.02em; color: var(--ink); margin-bottom: 1rem;
+  }
+  .section-sub { color: var(--muted); max-width: 520px; line-height: 1.7; }
+
+  /* ── ABOUT ── */
+  .about { background: var(--white); border-top: 1px solid var(--line); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .about-text p { color: var(--ink2); line-height: 1.8; margin-bottom: 1rem; }
+  .about-text p:last-child { margin-bottom: 0; }
+
+  .about-text strong { color: var(--blue); font-weight: 500; }
+
+  .about-cards { display: flex; flex-direction: column; gap: 1rem; }
+  .about-card {
+    border: 1px solid var(--line); border-radius: 12px;
+    padding: 1.25rem 1.5rem; background: var(--bg);
+    display: flex; gap: 1rem; align-items: flex-start;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .about-card:hover { border-color: var(--blue); transform: translateX(4px); }
+
+  .about-card-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: var(--blue-light); color: var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; flex-shrink: 0;
+  }
+
+  .about-card-title { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.25rem; }
+  .about-card-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.5; }
+
+  /* ── PROJECTS ── */
+  .projects { background: var(--bg); }
+  .projects-header { margin-bottom: 3rem; }
+  .projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+
+  .project-card {
+    background: var(--white); border-radius: 16px;
+    border: 1px solid var(--line); overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-decoration: none; color: inherit; display: block;
+  }
+  .project-card:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
+
+  .project-thumb {
+    height: 180px; display: flex; align-items: center; justify-content: center;
+    font-size: 3rem; position: relative; overflow: hidden;
+  }
+  .thumb-fashion { background: linear-gradient(135deg, #e8f4e8, #c8e6c8); }
+  .thumb-research { background: linear-gradient(135deg, #fef3e2, #fde0a8); }
+  .thumb-itinerary { background: linear-gradient(135deg, #e3f0ff, #b3d0f5); }
+
+  .project-thumb-label {
+    position: absolute; bottom: 12px; left: 12px;
+    background: rgba(255,255,255,0.9); border-radius: 6px;
+    padding: 0.3rem 0.65rem; font-size: 0.7rem; font-weight: 600;
+    color: var(--ink); letter-spacing: 0.04em; text-transform: uppercase;
+  }
+
+  .project-body { padding: 1.5rem; }
+  .project-type {
+    font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em;
+    color: var(--teal); font-weight: 600; margin-bottom: 0.5rem;
+  }
+  .project-name {
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem;
+    margin-bottom: 0.5rem; color: var(--ink);
+  }
+  .project-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; margin-bottom: 1rem; }
+  .project-link {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    color: var(--blue); font-size: 0.82rem; font-weight: 500;
+    text-decoration: none;
+  }
+  .project-link:hover { text-decoration: underline; }
+
+  /* ── EXPERIENCE ── */
+  .experience { background: var(--white); border-top: 1px solid var(--line); }
+  .exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; }
+
+  .timeline { position: relative; padding-left: 1.5rem; }
+  .timeline::before {
+    content: ''; position: absolute; left: 0; top: 6px; bottom: 0;
+    width: 1px; background: var(--line);
+  }
+
+  .timeline-item { position: relative; margin-bottom: 2.5rem; }
+  .timeline-dot {
+    position: absolute; left: -1.875rem; top: 5px;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--blue); border: 3px solid var(--bg);
+    box-shadow: 0 0 0 2px var(--blue);
+  }
+
+  .timeline-period { font-size: 0.75rem; color: var(--teal); font-weight: 500; margin-bottom: 0.35rem; }
+  .timeline-role { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 0.25rem; }
+  .timeline-company { font-size: 0.85rem; color: var(--muted); margin-bottom: 0.5rem; }
+  .timeline-desc { font-size: 0.85rem; color: var(--ink2); line-height: 1.6; }
+
+  /* Skills section */
+  .skills-wrap { display: flex; flex-direction: column; gap: 1.25rem; }
+  .skill-group { }
+  .skill-group-name {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--muted); margin-bottom: 0.6rem;
+  }
+  .skill-pills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .pill {
+    border: 1px solid var(--line); border-radius: 100px;
+    padding: 0.3rem 0.85rem; font-size: 0.8rem; color: var(--ink2);
+    background: var(--bg); transition: all 0.2s;
+  }
+  .pill:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
+
+  /* ── ACHIEVEMENTS ── */
+  .achievements { background: var(--ink); color: var(--white); }
+  .achievements .section-label { color: var(--teal); }
+  .achievements .section-title { color: var(--white); }
+  .achievements .section-sub { color: rgba(255,255,255,0.5); }
+
+  .ach-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+  .ach-card {
+    border: 1px solid rgba(255,255,255,0.1); border-radius: 16px;
+    padding: 2rem; text-align: center;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .ach-card:hover { border-color: rgba(26,79,214,0.5); background: rgba(26,79,214,0.08); }
+  .ach-num {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 2.8rem; color: var(--blue); line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .ach-label { font-size: 0.9rem; color: rgba(255,255,255,0.7); line-height: 1.4; }
+
+  /* ── CERTIFICATIONS ── */
+  .certifications { background: var(--bg); }
+  .cert-list { display: flex; flex-direction: column; gap: 1rem; max-width: 720px; }
+  .cert-item {
+    display: flex; align-items: flex-start; gap: 1rem;
+    background: var(--white); border: 1px solid var(--line);
+    border-radius: 12px; padding: 1.25rem 1.5rem;
+    transition: border-color 0.2s;
+  }
+  .cert-item:hover { border-color: var(--blue); }
+  .cert-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: var(--blue-light); color: var(--blue);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; flex-shrink: 0;
+  }
+  .cert-name { font-weight: 500; font-size: 0.9rem; color: var(--ink); margin-bottom: 0.2rem; }
+  .cert-org { font-size: 0.78rem; color: var(--muted); }
+  .cert-badge {
+    margin-left: auto; background: rgba(14,165,160,0.1); color: var(--teal);
+    padding: 0.2rem 0.65rem; border-radius: 100px;
+    font-size: 0.7rem; font-weight: 600; white-space: nowrap; align-self: flex-start;
+  }
+
+  /* ── CONTACT ── */
+  .contact {
+    background: var(--white); border-top: 1px solid var(--line);
+    text-align: center;
+  }
+  .contact-card {
+    max-width: 560px; margin: 0 auto;
+    background: var(--bg); border: 1px solid var(--line);
+    border-radius: 20px; padding: 3rem 2rem;
+  }
+  .contact-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; }
+  .contact-link {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    padding: 0.7rem 1.4rem; border-radius: 8px;
+    font-size: 0.85rem; font-weight: 500; text-decoration: none;
+    border: 1.5px solid var(--line); color: var(--ink2);
+    transition: all 0.2s;
+  }
+  .contact-link:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-light); }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center; padding: 2rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.8rem; color: var(--muted);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; gap: 3rem; padding-top: 7rem; text-align: center; }
+    .hero-sub { max-width: 100%; }
+    .hero-cta { justify-content: center; }
+    .hero-visual { display: none; }
+    .about-grid, .exp-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .projects-grid { grid-template-columns: 1fr 1fr; }
+    .ach-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .projects-grid, .ach-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">Srihari B</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-eyebrow">Available for opportunities</div>
+    <h1 class="hero-title">
+      Designing<br>
+      <span>experiences</span><br>
+      that matter.
+    </h1>
+    <p class="hero-sub">
+      UI/UX Designer with 2+ years of enterprise tech experience. I bring analytical precision, user empathy, and a deep understanding of systems — from configuring pension platforms for Fortune 500 clients to crafting intuitive mobile apps.
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn-primary">View My Work →</a>
+      <a href="#contact" class="btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="badge badge-top">✦ UI/UX Design</div>
+    <div class="hero-card">
+      <div class="hero-card-header">
+        <div class="avatar">SB</div>
+        <div>
+          <div class="hero-card-name">Srihari B</div>
+          <div class="hero-card-role">UI/UX Designer · Palakkad, KL</div>
+        </div>
+      </div>
+      <div class="skill-tags">
+        <span class="skill-tag">Figma</span>
+        <span class="skill-tag">Design Thinking</span>
+        <span class="skill-tag teal">UX Research</span>
+        <span class="skill-tag teal">Prototyping</span>
+        <span class="skill-tag amber">SQL</span>
+        <span class="skill-tag amber">Excel</span>
+      </div>
+      <div class="stat-row">
+        <div class="stat">
+          <div class="stat-num">51</div>
+          <div class="stat-label">Awards Won</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">2+</div>
+          <div class="stat-label">Yrs Experience</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Design Projects</div>
+        </div>
+      </div>
+    </div>
+    <div class="badge badge-bottom">🎓 IIITB Certified</div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-grid">
+    <div class="about-text">
+      <p class="section-label">About Me</p>
+      <h2 class="section-title">Tech background.<br>Design heart.</h2>
+      <p>
+        I'm Srihari — a professional transitioning into UI/UX Design from a career in enterprise technology at Wipro Technologies. For over two years, I've worked at the intersection of systems, data, and people, configuring complex benefits administration technology for major corporations like <strong>ExxonMobil</strong>.
+      </p>
+      <p>
+        That experience taught me something invaluable: <strong>users don't interact with features, they interact with outcomes</strong>. Understanding what people actually need — not just what they ask for — is at the core of my design philosophy.
+      </p>
+      <p>
+        I'm currently completing my <strong>Advanced Certification in UI/UX Design with Generative AI</strong> from IIITB & Simplilearn, and I'm building a portfolio that reflects real-world thinking and craft.
+      </p>
+    </div>
+    <div class="about-cards">
+      <div class="about-card">
+        <div class="about-card-icon">🔍</div>
+        <div>
+          <div class="about-card-title">Systems Thinker</div>
+          <div class="about-card-desc">2+ years configuring enterprise software for Fortune 500 clients — I understand how complex systems work and where they break for users.</div>
+        </div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">🎨</div>
+        <div>
+          <div class="about-card-title">Design Craftsperson</div>
+          <div class="about-card-desc">Proficient in Figma, Canva, and Adobe Express. I design with intent — every screen has a purpose, every interaction tells a story.</div>
+        </div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">📊</div>
+        <div>
+          <div class="about-card-title">Data-Informed</div>
+          <div class="about-card-desc">SQL and Excel proficiency means I can validate designs with data, not just aesthetics. I build what works, not just what looks good.</div>
+        </div>
+      </div>
+      <div class="about-card">
+        <div class="about-card-icon">🤝</div>
+        <div>
+          <div class="about-card-title">Collaborative Leader</div>
+          <div class="about-card-desc">Led IEEE chapters, media teams, and cross-functional delivery at Wipro. I work best alongside people who care about the outcome.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects" id="projects">
+  <div class="projects-header">
+    <p class="section-label">Portfolio</p>
+    <h2 class="section-title">Design Projects</h2>
+    <p class="section-sub">End-to-end UX work spanning research, information architecture, and high-fidelity prototyping.</p>
+  </div>
+
+  <div class="projects-grid">
+    <a class="project-card" href="https://www.figma.com/design/Iz3HE1TXXPPEorLW8sGDSC" target="_blank">
+      <div class="project-thumb thumb-fashion">
+        <span>🌿</span>
+        <span class="project-thumb-label">Figma Prototype</span>
+      </div>
+      <div class="project-body">
+        <div class="project-type">UI/UX Design</div>
+        <div class="project-name">Sustainable Fashion App</div>
+        <div class="project-desc">
+          A mobile app designed to help users make environmentally conscious fashion choices. Covers full UX flow from research to high-fidelity Figma prototype.
+        </div>
+        <span class="project-link">View in Figma ↗</span>
+      </div>
+    </a>
+
+    <a class="project-card" href="https://www.figma.com/design/ZTiNdrQr6VOCYKrsS0Mxdg" target="_blank">
+      <div class="project-thumb thumb-research">
+        <span>🔬</span>
+        <span class="project-thumb-label">UX Research</span>
+      </div>
+      <div class="project-body">
+        <div class="project-type">UX Research</div>
+        <div class="project-name">Fashio App — UX Research</div>
+        <div class="project-desc">
+          Structured UX research study for a fashion discovery app. Includes user interviews, journey mapping, and insights that directly informed design decisions.
+        </div>
+        <span class="project-link">View Research ↗</span>
+      </div>
+    </a>
+
+    <a class="project-card" href="https://staff-brick-61029653.figma.site" target="_blank">
+      <div class="project-thumb thumb-itinerary">
+        <span>🗺️</span>
+        <span class="project-thumb-label">Interactive Prototype</span>
+      </div>
+      <div class="project-body">
+        <div class="project-type">Interaction Design</div>
+        <div class="project-name">Itinerary Builder</div>
+        <div class="project-desc">
+          An interactive trip planning tool focused on intuitive information architecture and drag-and-drop interaction patterns for seamless itinerary creation.
+        </div>
+        <span class="project-link">View Live ↗</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="experience" id="experience">
+  <div class="exp-grid">
+    <div>
+      <p class="section-label">Background</p>
+      <h2 class="section-title">Experience &amp;<br>Education</h2>
+      <p class="section-sub" style="margin-bottom: 2.5rem;">Two years of enterprise experience that sharpened my problem-solving, collaboration, and analytical thinking — skills that make me a stronger designer.</p>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-period">June 2023 – Present</div>
+          <div class="timeline-role">Senior System Configuration Specialist</div>
+          <div class="timeline-company">Wipro Technologies — Alight BPS (ExxonMobil)</div>
+          <div class="timeline-desc">Configured Total Benefits Administration systems, wrote SQL reports, validated large-scale Excel data, and collaborated cross-functionally. Earned 51 Winner Circle recognition awards.</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot" style="background: var(--teal); box-shadow: 0 0 0 2px var(--teal);"></div>
+          <div class="timeline-period">2022</div>
+          <div class="timeline-role">Chairperson — IEEE PES Student Branch</div>
+          <div class="timeline-company">IEEE PES Student Branch Chapter, NCERC</div>
+          <div class="timeline-desc">Led the chapter, organized technical events, and served as Electronics & Communication Coordinator for IEEE PES Kerala Section.</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot" style="background: var(--teal); box-shadow: 0 0 0 2px var(--teal);"></div>
+          <div class="timeline-period">2021</div>
+          <div class="timeline-role">Secretary — IEEE Student Branch</div>
+          <div class="timeline-company">NCERC, Kerala</div>
+          <div class="timeline-desc">Managed branch operations, events, and communications as student secretary.</div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot" style="background: var(--amber); box-shadow: 0 0 0 2px var(--amber);"></div>
+          <div class="timeline-period">July 2019 – June 2023</div>
+          <div class="timeline-role">B.Tech — Computer Science &amp; Engineering</div>
+          <div class="timeline-company">NCERC (Nehru College), Kerala · CGPA 7.48</div>
+          <div class="timeline-desc">Active IEEE member for 3 years, led media team for NSS, and organized multiple technical events.</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <p class="section-label" style="margin-bottom: 0.75rem;">Skills</p>
+      <h3 style="font-family:'Syne',sans-serif; font-weight:700; font-size:1.3rem; margin-bottom:2rem; color:var(--ink);">Tools &amp; Capabilities</h3>
+
+      <div class="skills-wrap">
+        <div class="skill-group">
+          <div class="skill-group-name">Design</div>
+          <div class="skill-pills">
+            <span class="pill">Figma</span>
+            <span class="pill">Wireframing</span>
+            <span class="pill">Prototyping</span>
+            <span class="pill">Design Thinking</span>
+            <span class="pill">UX Research</span>
+            <span class="pill">Information Architecture</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-name">Creative Tools</div>
+          <div class="skill-pills">
+            <span class="pill">Canva</span>
+            <span class="pill">Adobe Express</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-name">Data & Analytics</div>
+          <div class="skill-pills">
+            <span class="pill">SQL</span>
+            <span class="pill">Advanced Excel</span>
+            <span class="pill">Data Validation</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-name">Enterprise Platforms</div>
+          <div class="skill-pills">
+            <span class="pill">TBA (Alight)</span>
+            <span class="pill">HRO Workbench</span>
+            <span class="pill">SmartComm</span>
+            <span class="pill">SharePoint</span>
+            <span class="pill">Jira</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section class="achievements">
+  <p class="section-label">Recognition</p>
+  <h2 class="section-title">By the Numbers</h2>
+  <p class="section-sub">Consistent performance, leadership, and going beyond what's expected.</p>
+
+  <div class="ach-grid">
+    <div class="ach-card">
+      <div class="ach-num">51</div>
+      <div class="ach-label">Winner Circle Awards at Wipro in under 3 years</div>
+    </div>
+    <div class="ach-card">
+      <div class="ach-num">3</div>
+      <div class="ach-label">Years of IEEE leadership roles at college</div>
+    </div>
+    <div class="ach-card">
+      <div class="ach-num">3</div>
+      <div class="ach-label">UI/UX design certifications earned</div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section class="certifications">
+  <p class="section-label">Credentials</p>
+  <h2 class="section-title">Certifications</h2>
+  <p class="section-sub" style="margin-bottom: 2.5rem;">Actively investing in design education to complement hands-on project work.</p>
+
+  <div class="cert-list">
+    <div class="cert-item">
+      <div class="cert-icon">🎓</div>
+      <div>
+        <div class="cert-name">Advanced Certification in UI/UX Design with Generative AI</div>
+        <div class="cert-org">IIITB in collaboration with Simplilearn</div>
+      </div>
+      <span class="cert-badge">In Progress</span>
+    </div>
+    <div class="cert-item">
+      <div class="cert-icon">✅</div>
+      <div>
+        <div class="cert-name">UI/UX Design and Design Thinking Fundamentals</div>
+        <div class="cert-org">Simplilearn</div>
+      </div>
+    </div>
+    <div class="cert-item">
+      <div class="cert-icon">✅</div>
+      <div>
+        <div class="cert-name">UX Research: Applying UX Research to Design</div>
+        <div class="cert-org">Simplilearn</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="contact-card">
+    <p class="section-label" style="text-align:center;">Let's Connect</p>
+    <h2 class="section-title" style="text-align:center;">Open to Opportunities</h2>
+    <p style="color:var(--muted); text-align:center; max-width:400px; margin:0 auto; line-height:1.7;">
+      I'm actively looking for UI/UX roles where I can bring both design sensibility and enterprise experience to the team.
+    </p>
+    <div class="contact-links">
+      <a class="contact-link" href="mailto:sriharibalaram@gmail.com">✉️ sriharibalaram@gmail.com</a>
+      <a class="contact-link" href="tel:+919995359742">📱 +91 9995359742</a>
+      <a class="contact-link" href="https://www.linkedin.com/in/srihari-b-158949200" target="_blank">💼 LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Srihari B · UI/UX Designer · Palakkad, Kerala
+</footer>
+
+</body>
+</html>
